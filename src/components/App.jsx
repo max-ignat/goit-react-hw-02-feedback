@@ -1,7 +1,9 @@
-import React, { Component } from 'react';
+import React from 'react';
 import Notification from './Notification';
+import Stat from './Stat';
 
-class App extends Component {
+
+class App extends React.Component {
   state = {
     good: 0,
     neutral: 0,
@@ -28,13 +30,14 @@ class App extends Component {
     });
   };
 
-  // reset = () => {
-  //   this.setState({
-  //     good:  0,
-  //     neutral:  0,
-  //     bad:  0,
-  //    })
-  //  }
+  reset = () => {
+    this.setState({
+      good:  0,
+      neutral:  0,
+      bad:  0,
+      visible : false,
+     })
+   }
 
   totalFeeds = () => {
     const { good, neutral, bad } = this.state;
@@ -60,21 +63,22 @@ class App extends Component {
             Neutral
           </button>
           <button type="button" onClick={this.badClick}>
-            So-so
+            Bad
           </button>
-          {/* <button onClick={this.reset}>reset</button> */}
+          <button onClick={this.reset}> X </button>
         </div>
 
-        
-          <div>
-            <h2>Statistics</h2>
-            <p> Good: {good} </p>
-            <p> Neutral: {neutral} </p>
-            <p> So-so: {bad} </p>
-            <p> Total: {this.totalFeeds()} </p>
-            <p> Positive feedback: {this.positiveFeedbackPercentage()} </p>
-          </div>
-        
+        {this.state.visible ? (
+          <Stat
+            good={good}
+            neutral={neutral}
+            bad={bad}
+            total={this.totalFeeds()}
+            totalPersentage={this.positiveFeedbackPercentage()}
+          />
+        ) : (
+          <Notification text="There is no feedback " />
+        )}
 
         {/* <div>
           <h2>Statistics</h2>

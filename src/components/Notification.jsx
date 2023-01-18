@@ -1,9 +1,11 @@
+import React from "react";
 
-
-export default function Notification (text) {
-      return (
-          <p> {text}</p>
-    );
+const Notification = ({text}) => <p> {text}</p>;
+     
+export default Notification;          
+    
   
-}
+
+
+
 
