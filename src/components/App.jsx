@@ -1,9 +1,8 @@
-import React from 'react';
+import React, {Component} from 'react';
 import Notification from './Notification';
 import Stat from './Stat';
 
-
-class App extends React.Component {
+class App extends Component {
   state = {
     good: 0,
     neutral: 0,
@@ -11,41 +10,35 @@ class App extends React.Component {
     visible: false,
   };
 
-  goodClick = () => {
-    this.setState({
-      good: this.state.good + 1,
-      visible : true,
+  // ====================зміна state===================
+  clickBtn(name) {
+    this.setState(prevState => {
+      return { visible: true, [name]: prevState[name] + 1 };
     });
-  };
-  neutralClick = () => {
-    this.setState({
-      neutral: this.state.neutral + 1,
-      visible : true,
-    });
-  };
-  badClick = () => {
-    this.setState({
-      bad: this.state.bad + 1,
-      visible : true,
-    });
-  };
+  }
 
   reset = () => {
     this.setState({
-      good:  0,
-      neutral:  0,
-      bad:  0,
-      visible : false,
-     })
-   }
+      good: 0,
+      neutral: 0,
+      bad: 0,
+      visible: false,
+    });
+  };
 
   totalFeeds = () => {
     const { good, neutral, bad } = this.state;
     const total = good + neutral + bad;
+
     return total;
   };
 
-  positiveFeedbackPercentage = () => {
+  positiveFeedsPercentage = () => {
+    const total = this.totalFeeds();
+    if (!total) {
+      return 0;
+    }
+
     const { good } = this.state;
     return Math.round((good / this.totalFeeds()) * 100);
   };
@@ -56,13 +49,13 @@ class App extends React.Component {
       <section>
         <h1 className="title">Plese leave your feedback</h1>
         <div className="controls">
-          <button type="button" onClick={this.goodClick}>
+          <button type="button" onClick={() => this.clickBtn('good')}>
             Good
           </button>
-          <button type="button" onClick={this.neutralClick}>
+          <button type="button" onClick={() => this.clickBtn('neutral')}>
             Neutral
           </button>
-          <button type="button" onClick={this.badClick}>
+          <button type="button" onClick={() => this.clickBtn('bad')}>
             Bad
           </button>
           <button onClick={this.reset}> X </button>
@@ -74,25 +67,14 @@ class App extends React.Component {
             neutral={neutral}
             bad={bad}
             total={this.totalFeeds()}
-            totalPersentage={this.positiveFeedbackPercentage()}
+            totalPersentage={this.positiveFeedsPercentage()}
           />
         ) : (
-          <Notification text="There is no feedback " />
+          <Notification text="There is no feedback. Please rate!" />
         )}
-
-        {/* <div>
-          <h2>Statistics</h2>
-          <p> Good: {good} </p>
-          <p> Neutral: {neutral} </p>
-          <p> So-so: {bad} </p>
-          <p> Total: {this.totalFeeds()} </p>
-          <p> Positive feedback: {this.positiveFeedbackPercentage()} </p>
-        </div> */}
       </section>
     );
   }
 }
-
-
 
 export default App;
