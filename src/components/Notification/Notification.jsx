@@ -1,11 +1,8 @@
-import React from "react";
-import { Text } from "./Notification.styled";
-const Notification = ({text}) => <Text> {text}</Text>;
-     
-export default Notification;          
-    
-  
 
+import { Title } from './Notification.styled';
 
+export default function Notification({ text }) {
+  return <Title>{text}</Title>;
+}
 
 
