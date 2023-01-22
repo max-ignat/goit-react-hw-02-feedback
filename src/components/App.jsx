@@ -8,10 +8,11 @@ class App extends Component {
     neutral: 0,
     bad: 0,
     visible: false,
+    
   };
 
   // ====================зміна state===================
-  clickBtn(name) {
+  clickBtn = (name) => {
     this.setState(prevState => {
       return { visible: true, [name]: prevState[name] + 1 };
     });
@@ -23,6 +24,7 @@ class App extends Component {
       neutral: 0,
       bad: 0,
       visible: false,
+      
     });
   };
 
