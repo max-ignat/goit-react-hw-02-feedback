@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 import Notification from './Notification';
 import Stat from './Stat';
-
+import { Button, StatWraper, StatSection, Title } from 'App.styled';
+ 
 class App extends Component {
   state = {
     good: 0,
@@ -48,21 +49,20 @@ class App extends Component {
   render() {
     const { good, neutral, bad } = this.state;
     return (
-      <section>
-        <h1 className="title">Plese leave your feedback</h1>
-        <div className="controls">
-          <button type="button" onClick={() => this.clickBtn('good')}>
+      <StatWraper>
+        <Title>Plese leave your feedback</Title>
+        <StatSection>
+          <Button type="button" onClick={() => this.clickBtn('good')}>
             Good
-          </button>
-          <button type="button" onClick={() => this.clickBtn('neutral')}>
+          </Button>
+          <Button type="button" onClick={() => this.clickBtn('neutral')}>
             Neutral
-          </button>
-          <button type="button" onClick={() => this.clickBtn('bad')}>
+          </Button>
+          <Button type="button" onClick={() => this.clickBtn('bad')}>
             Bad
-          </button>
-          <button onClick={this.reset}> X </button>
-        </div>
-
+          </Button>
+          <Button onClick={this.reset}> reset </Button>
+        </StatSection>
         {this.state.visible ? (
           <Stat
             good={good}
@@ -74,7 +74,7 @@ class App extends Component {
         ) : (
           <Notification text="There is no feedback. Please rate!" />
         )}
-      </section>
+      </StatWraper>
     );
   }
 }
